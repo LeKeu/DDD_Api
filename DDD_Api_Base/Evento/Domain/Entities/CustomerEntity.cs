@@ -1,6 +1,6 @@
-﻿using Common.Domain.ValueObjects;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Common.Domain;
+using Common.Domain.ValueObjects.Customer;
 
 namespace Evento.Domain.Entities
 {
@@ -8,15 +8,15 @@ namespace Evento.Domain.Entities
     public class Customer : AggregateRoot
     {
         public override object Id => _id;
-        UuidVO _id { get; set; }
-        public CpfVO Cpf { get; set; }
-        public NomeVO Nome { get; set; }
+        CustomerId_VO _id { get; set; }
+        public CustomerCpf_VO Cpf { get; set; }
+        public CustomerName_VO Name { get; set; }
 
         public Customer(CustomerConstructorProp prop)
         {
-            _id = prop.Id ?? new UuidVO();
+            _id = prop.Id ?? new CustomerId_VO();
             Cpf = prop.Cpf;
-            Nome = prop.Nome;
+            Name = prop.Name;
         }
 
         public static Customer CreateCustomer(CustomerConstructorProp prop)
@@ -24,10 +24,12 @@ namespace Evento.Domain.Entities
             return new Customer(prop);
         } // to seguindo como ele está fazendo na aula. discordo de como as coisas estão, mas vou continuar vendo para depois modificar melhor de acordo com o que eu aprendi
 
-        public override string ToJson() //transformando em override por causa da classe mãe!
+        public void ChangeName(string nome)
         {
-            return JsonSerializer.Serialize(this);
+            this.Name = new CustomerName_VO(nome);
         }
+
+        public override string ToJson() => JsonSerializer.Serialize(this);
 
         public override string ToString()
         {
@@ -38,9 +40,9 @@ namespace Evento.Domain.Entities
 
     public record CustomerConstructorProp()
     { // dessa forma, ao invés de eu ficar passando valores soltos no constructor, posso passar esse objeto
-        public UuidVO? Id { get; set; }
-        public CpfVO Cpf { get; set; }
-        public NomeVO Nome { get; set; }
+        public CustomerId_VO? Id { get; set; }
+        public CustomerCpf_VO Cpf { get; set; }
+        public CustomerName_VO Name { get; set; }
     }
 
 }

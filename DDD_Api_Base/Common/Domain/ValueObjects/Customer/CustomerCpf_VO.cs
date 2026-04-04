@@ -1,10 +1,10 @@
 ﻿using Common.Domain.Exceptions;
 
-namespace Common.Domain.ValueObjects
+namespace Common.Domain.ValueObjects.Customer
 {
-    public class CpfVO : ValueObject<string>
+    public class CustomerCpf_VO : ValueObject<string>
     {
-        public CpfVO(string value) : base(value)
+        public CustomerCpf_VO(string value) : base(value)
         {
             IsValid();
         }
@@ -16,7 +16,7 @@ namespace Common.Domain.ValueObjects
 
             //if (!int.TryParse(Value.Replace(".", "").Replace("-", ""), out _))
             //    throw new InvalidCpfException("CPF deve ter apenas caracteres numéricos.");
-            
+
             //alguma outra validação
 
             return true;

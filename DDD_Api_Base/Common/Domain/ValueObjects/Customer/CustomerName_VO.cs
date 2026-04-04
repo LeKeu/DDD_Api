@@ -1,18 +1,19 @@
-﻿namespace Common.Domain.ValueObjects
+﻿using Common.Domain.Exceptions;
+
+namespace Common.Domain.ValueObjects.Customer
 {
-    public class NomeVO : ValueObject<string>
+    public class CustomerName_VO : ValueObject<string>
     {
         //depois gerar o teste dele no proj de teste!! só preciso resolver o bo do teste
-        public NomeVO(string nome) : base(nome)
+        public CustomerName_VO(string nome) : base(nome)
         {
-            if (!IsValid())
-                throw new ArgumentException("Nome não é válido!");
+            IsValid();
         }
 
         protected override bool IsValid()
         { // faço minhas validações internas do nome, o que eu quiser
             if (Value.Length <= 3) // esse 'Value' pega o que foi passado no base()
-                return false;
+                throw new InvalidCustomerException("Nome precisa ter mais do que 3 caracteres.");
 
             // quaisquer outras validações no futuro
 
