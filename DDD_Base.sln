@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDD_Api_Base", "DDD_Api_Base\DDD_Api_Base.csproj", "{D83544E5-3C64-4009-977F-BDC768E093B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDD_Api_Base", "DDD_Api_Base\DDD_Api_Base.csproj", "{D83544E5-3C64-4009-977F-BDC768E093B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDD_Api_Base_Test", "DDD_Api_Base_Test\DDD_Api_Base_Test.csproj", "{9841CEBE-928A-43D4-A72D-763A31478554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D83544E5-3C64-4009-977F-BDC768E093B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D83544E5-3C64-4009-977F-BDC768E093B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D83544E5-3C64-4009-977F-BDC768E093B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9841CEBE-928A-43D4-A72D-763A31478554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9841CEBE-928A-43D4-A72D-763A31478554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9841CEBE-928A-43D4-A72D-763A31478554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9841CEBE-928A-43D4-A72D-763A31478554}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

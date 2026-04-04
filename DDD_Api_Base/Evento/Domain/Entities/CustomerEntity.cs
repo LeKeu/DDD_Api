@@ -1,18 +1,19 @@
-﻿using Common.Domain;
+﻿using Common.Domain.ValueObjects;
 using System.Text.Json;
+using Common.Domain;
 
-namespace DDD_Api_Base.Evento.Domain.Entities
+namespace Evento.Domain.Entities
 {
 
     public class Customer : AggregateRoot
     {
-        string Id { get; set; }
-        string Cpf { get; set; }
-        string Nome { get; set; }
+        UuidVO Id { get; set; }
+        public CpfVO Cpf { get; set; }
+        public NomeVO Nome { get; set; }
 
         public Customer(CustomerConstructorProp prop)
         {
-            Id = prop.Id;
+            Id = prop.Id ?? new UuidVO();
             Cpf = prop.Cpf;
             Nome = prop.Nome;
         }
@@ -30,15 +31,15 @@ namespace DDD_Api_Base.Evento.Domain.Entities
         public override string ToString()
         {
             return base.ToString();
-            return $"{{ id: {Id}, cpf: {Cpf}, nome: {Nome} }}";
+            //return $"{{ id: {Id}, cpf: {Cpf}, nome: {Nome} }}";
         }
     }
 
     public record CustomerConstructorProp()
     { // dessa forma, ao invés de eu ficar passando valores soltos no constructor, posso passar esse objeto
-        public string? Id { get; set; }
-        public string Cpf { get; set; }
-        public string Nome { get; set; }
+        public UuidVO? Id { get; set; }
+        public CpfVO Cpf { get; set; }
+        public NomeVO Nome { get; set; }
     }
 
 }
