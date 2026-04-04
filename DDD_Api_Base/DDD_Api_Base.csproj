@@ -7,6 +7,7 @@
     <UserSecretsId>b0e96037-5c0d-4f00-b758-d76111c1c2cf</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <AssemblyName />
+    <RootNamespace />
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,8 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Infra\" />
+    <Folder Include="Evento\Application\" />
+    <Folder Include="Common\Application\" />
+    <Folder Include="Common\Infra\" />
+    <Folder Include="Evento\Infra\" />
   </ItemGroup>
 
 </Project>
