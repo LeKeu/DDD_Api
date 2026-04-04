@@ -7,13 +7,14 @@ namespace Evento.Domain.Entities
 
     public class Customer : AggregateRoot
     {
-        UuidVO Id { get; set; }
+        public override object Id => _id;
+        UuidVO _id { get; set; }
         public CpfVO Cpf { get; set; }
         public NomeVO Nome { get; set; }
 
         public Customer(CustomerConstructorProp prop)
         {
-            Id = prop.Id ?? new UuidVO();
+            _id = prop.Id ?? new UuidVO();
             Cpf = prop.Cpf;
             Nome = prop.Nome;
         }
