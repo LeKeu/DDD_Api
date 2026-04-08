@@ -1,7 +1,7 @@
 ﻿namespace Common.Domain.Exceptions
 {
-    public class InvalidEventSpotException: Exception
+    public class InvalidEventSpotException : Exception
     {
-        public InvalidEventSpotException(string message) : base(message) { }
+        public InvalidEventSpotException(string mensagem) : base(mensagem) { }
     }
 }

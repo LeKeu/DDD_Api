@@ -9,7 +9,7 @@ namespace Evento.Domain.Entities
     public class EventEntity : AggregateRoot
     {
         public override object Id => _id;
-        EventId_VO _id {  get; set; }
+        EventId_VO _id ;
         string Name { get; set; }
         string? Descrption { get; set; }
         DateTime Date { get; set; }
