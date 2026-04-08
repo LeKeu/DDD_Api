@@ -8,12 +8,12 @@ namespace Evento.Domain.Entities
     {
         public override object Id => _id;
         EventSectionId_VO _id { get; set; }
-        string Name { get; set; }
-        string? Description { get; set; }
-        bool IsPublished { get; set; }
-        int TotalSpots { get; set; }
-        int TotalSpotsReserved { get; set; }
-        decimal Price { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public bool IsPublished { get; set; }
+        public int TotalSpots { get; set; }
+        public int TotalSpotsReserved { get; set; }
+        public decimal Price { get; set; }
         private List<EventSpot> _spots = new List<EventSpot>();
 
         public EventSection(EventSectionConstructorProps prop)
@@ -41,6 +41,27 @@ namespace Evento.Domain.Entities
         }
 
         public override string ToJson() => JsonSerializer.Serialize(this);
+
+        #region Changes
+        public void ChangeName(string newName) => this.Name = newName;
+        public void ChangeDescription(string newDescription) => this.Description = newDescription;
+        public void ChangePrice(decimal newPrice) => this.Price = newPrice;
+        public void ChangeLocation(string newLocation)
+        {
+            // AQUI
+        }
+
+        #endregion
+
+        #region publish
+        public void Publish() => IsPublished = true;
+        public void UnPublish() => IsPublished = false;
+        public void PublishAll()
+        {
+            this.Publish();
+            _spots.ForEach(x => x.Publish());
+        }
+        #endregion
     }
 
     #region records

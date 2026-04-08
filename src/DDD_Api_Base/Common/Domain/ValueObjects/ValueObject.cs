@@ -2,7 +2,9 @@
 
 namespace Common.Domain.ValueObjects
 {
-    public abstract class ValueObject<TValue>
+    public abstract class ValueObject() { }
+
+    public abstract class ValueObject<TValue> : ValueObject
     {
         //readonly = equivalente ao readonly + deepFreeze do TS
         protected readonly TValue _value;
