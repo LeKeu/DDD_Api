@@ -14,11 +14,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Evento\Application\" />
-    <Folder Include="Common\Application\" />
-    <Folder Include="Common\Infra\" />
-    <Folder Include="Evento\Infra\" />
-  </ItemGroup>
-
 </Project>

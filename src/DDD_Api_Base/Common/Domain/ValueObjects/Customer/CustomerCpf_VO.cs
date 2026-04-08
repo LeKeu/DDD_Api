@@ -12,7 +12,7 @@ namespace Common.Domain.ValueObjects.Customer
         protected override bool IsValid()
         {
             if (Value.Length != 11)
-                throw new InvalidCpfException($"CPF tem {Value.Length} caracteres e deveria ter 11.");
+                throw new InvalidCustomerException($"CPF tem {Value.Length} caracteres e deveria ter 11.");
 
             //if (!int.TryParse(Value.Replace(".", "").Replace("-", ""), out _))
             //    throw new InvalidCpfException("CPF deve ter apenas caracteres numéricos.");
