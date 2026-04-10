@@ -1,6 +1,7 @@
-﻿using Common.Domain;
-using Common.Domain.ValueObjects.EventSection;
+﻿using Common.Domain.ValueObjects.EventSection;
+using Common.Domain.ValueObjects.EventSpot;
 using System.Text.Json;
+using Common.Domain;
 
 namespace Evento.Domain.Entities
 {
@@ -14,7 +15,8 @@ namespace Evento.Domain.Entities
         public int TotalSpots { get; set; }
         public int TotalSpotsReserved { get; set; }
         public decimal Price { get; set; }
-        private List<EventSpot> _spots = new List<EventSpot>();
+
+        private List<EventSpot> _spots = new List<EventSpot>(); // fazer o get e set deles!
 
         public EventSection(EventSectionConstructorProps prop)
         {
@@ -27,9 +29,9 @@ namespace Evento.Domain.Entities
             Price = prop.Price;
         }
 
-        public static EventSection CreateEventSection(EventSectionCreateCommand command)
+        public EventSection CreateEventSection(EventSectionCreateCommand command)
         {
-            return new EventSection(new EventSectionConstructorProps(
+            var section = new EventSection(new EventSectionConstructorProps(
                 Id: null,
                 Name: command.Name,
                 Description: command.Description ?? null,
@@ -38,6 +40,15 @@ namespace Evento.Domain.Entities
                 TotalSpotsReserved: 0,
                 Price: command.Price
                 ));
+            initSpots();
+
+            return section;
+        }
+
+        private void initSpots()
+        {
+            for (int i = 0; i < this.TotalSpots; i++)
+                this._spots.Add(EventSpot.CreateEventSpot());
         }
 
         public override string ToJson() => JsonSerializer.Serialize(this);
@@ -46,11 +57,14 @@ namespace Evento.Domain.Entities
         public void ChangeName(string newName) => this.Name = newName;
         public void ChangeDescription(string newDescription) => this.Description = newDescription;
         public void ChangePrice(decimal newPrice) => this.Price = newPrice;
-        public void ChangeLocation(string newLocation)
+        public void ChangeLocation(EventSpotId_VO spotId, string location)
         {
-            // AQUI
-        }
+            var spot = _spots.Find(x => x._id == spotId);
+            if (spot is null)
+                throw new ArgumentException("Spot não encontrado.");
 
+            spot.ChangeLocation(location);
+        }
         #endregion
 
         #region publish
@@ -62,6 +76,36 @@ namespace Evento.Domain.Entities
             _spots.ForEach(x => x.Publish());
         }
         #endregion
+
+        private bool AllowReserveSpot(EventSpotId_VO spotId)
+        {
+            if (!this.IsPublished)
+                return false;
+
+            var spot = _spots.Find(x => x._id == spotId);
+
+            if(spot is null)
+                throw new ArgumentException("Spot não encontrado");
+
+            if (spot.IsReserved || !spot.IsPublished)
+                return false;
+
+            return true;
+        }
+
+        private void MarkSpotAsReserved(EventSpotId_VO spotId)
+        {
+            var spot = _spots.Find(x => x._id == spotId);
+
+            if (spot is null)
+                throw new ArgumentException("Spot não encontrado");
+
+            if (spot.IsReserved)
+                throw new ArgumentException("Spot já reservado");
+
+            spot.MarkAsReserved();
+        }
+
     }
 
     #region records

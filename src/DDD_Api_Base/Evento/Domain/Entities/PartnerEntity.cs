@@ -30,16 +30,18 @@ namespace Evento.Domain.Entities
 
         public override string ToJson() => JsonSerializer.Serialize(this);
 
-        public EventEntity InitEvent(InitEventCommand command)
-        {
-            return EventEntity.CreateEvent( 
-                new CreateEventCommand(
-                    Name: command.Nome, 
-                    Description: command.Description,
-                    Date: command.date,
-                    PartnerId: this._id
-                ));
-        }
+
+        //aqui
+        //public EventEntity InitEvent(InitEventCommand command)
+        //{
+        //    return EventEntity.CreateEvent( 
+        //        new CreateEventCommand(
+        //            Name: command.Nome, 
+        //            Description: command.Description,
+        //            Date: command.date,
+        //            PartnerId: this._id
+        //        ));
+        //}
     }
 
     #region records

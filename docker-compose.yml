@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # Aplicação .NET
+  ddd_api_base:
+    image: ${DOCKER_REGISTRY-}dddapibase
+    build:
+      context: .
+      dockerfile: src/DDD_Api_Base/Dockerfile
+    container_name: ddd_api_base
+    ports:
+      - "5000:8080"
+    depends_on:
+      docker_sqlserver:
+        condition: service_healthy 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnection=Server=docker_sqlserver,1433;Database=product_db;User Id=sa;Password=myPassword1!;TrustServerCertificate=True;
+    networks:
+      - minha-rede
+
+  #SQL Server
+  docker_sqlserver:
+    container_name: docker_sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest 
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "myPassword1!"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql #aqui to persistindo dados
+    networks:
+      - minha-rede
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P myPassword1! -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+networks: #pelo que eu estudei, o docker já cria um padrão desses, mas tbm é bom usar customizado pra ocntrole!
+  minha-rede:
+    driver: bridge
+
+volumes:
+  sqlserver_data:  #volume ra não perder os meus dados!
+
+
+
+# version: '3.8'
+
+# services:
+#   ddd_api_base:
+#     build:
+#       context: .
+#       dockerfile: src/DDD_Api_Base/Dockerfile
+#     ports:
+#       - "5000:8080"
+#     depends_on:
+#       - docker_sqlserver
+
+#   docker_sqlserver:
+#     image: mcr.microsoft.com/mssql/server:2022-latest
+#     environment:
+#       ACCEPT_EULA: "Y"
+#       SA_PASSWORD: "myPassword1!"
+#     ports:
+#       - "1433:1433"

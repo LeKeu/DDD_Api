@@ -1,10 +1,17 @@
-using Common.Domain.ValueObjects;
-using Evento.Domain.Entities;
+using Evento.Infra.db;
+
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+var configuration = builder.Configuration;
 
-app.MapGet("/", () => "Hello World!");
+builder.Services.AddDbContextFactory(configuration);
+
+
+
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
 
 app.Run();
 
