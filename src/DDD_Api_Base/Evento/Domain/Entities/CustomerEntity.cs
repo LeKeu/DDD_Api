@@ -38,11 +38,12 @@ namespace Evento.Domain.Entities
         }
     }
 
-    public record CustomerConstructorProp()
-    { // dessa forma, ao invés de eu ficar passando valores soltos no constructor, posso passar esse objeto
-        public CustomerId_VO? Id { get; set; }
-        public CustomerCpf_VO Cpf { get; set; }
-        public CustomerName_VO Name { get; set; }
-    }
+    public record CustomerConstructorProp(
+        CustomerId_VO? Id,
+        CustomerCpf_VO Cpf,
+        CustomerName_VO Name
+        );
+    // dessa forma, ao invés de eu ficar passando valores soltos no constructor, posso passar esse objeto
+      
 
 }

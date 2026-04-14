@@ -1,7 +1,6 @@
 ﻿using Common.Domain;
-using Common.Domain.ValueObjects.EventSpot;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
+using Common.Domain.ValueObjects.EventSpot;
 
 namespace Evento.Domain.Entities
 {
@@ -38,7 +37,6 @@ namespace Evento.Domain.Entities
         public void Publish() => IsPublished = true;
         public void UnPublish() => IsPublished = false;
         public void MarkAsReserved() => IsReserved = true;
-
         #endregion
     }
 

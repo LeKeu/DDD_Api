@@ -46,7 +46,7 @@ namespace Evento.Domain.Entities
                 PartnerId: command.PartnerId
                 ));
             
-            AddEvent(
+            eventCreated.AddEvent(
                 new EventCreated(
                     eventCreated._id,
                     eventCreated.Name,
@@ -63,17 +63,19 @@ namespace Evento.Domain.Entities
 
         public override string ToJson() => JsonSerializer.Serialize(this);
 
-        public void AddSection(AddSectionCommand command)
-        {
-            var section = EventSection.CreateEventSection(new EventSectionCreateCommand(command.Name, command.Description, command.TotalSpots, command.Price));
-            _section.Add(section);
-            this.TotalSpots += section.TotalSpots;
-            AddEvent(
-                new EventAddedSection(
-                    this._id, section.Name, 
-                    section.Description, section.TotalSpots, 
-                    section.Price, this.TotalSpots));
-        }
+
+        //aqui
+        //public void AddSection(AddSectionCommand command)
+        //{
+        //    var section = EventSection.CreateEventSection(new EventSectionCreateCommand(command.Name, command.Description, command.TotalSpots, command.Price));
+        //    _section.Add(section);
+        //    this.TotalSpots += section.TotalSpots;
+        //    AddEvent(
+        //        new EventAddedSection(
+        //            this._id, section.Name, 
+        //            section.Description, section.TotalSpots, 
+        //            section.Price, this.TotalSpots));
+        //}
 
         #region changes
         public void ChangeName(string newName) => this.Name = newName;
